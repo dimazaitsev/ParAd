@@ -1,0 +1,40 @@
+#!/bin/sh
+#SBATCH --time=10:00:00
+
+# Tests ParAd on chosen matrices
+
+#start example: sbatch -N 10 -w "d[00-09]" -o output/test_slurm.stdout test_slurm
+
+en=0
+
+./test1_slurm tcp.spm ParTou
+en=$((en+$?))
+./test1_slurm bgp.spm ParTou -T
+en=$((en+$?))
+./test1_slurm AirplaneLD-pt-0200.spm ParTou
+en=$((en+$?))
+./test1_slurm AirplaneLD-pt-0200.spm zsolve
+en=$((en+$?))
+
+# generate clan
+
+echo ***** generate matrix: gen_clans 9 100 spm 0.6 1.2 > c9-100.spm
+../utils/gen_clans 9 100 spm 0.6 1.2 > c9-100.spm
+
+# try generated clan
+
+./test1_slurm c9-100.spm zsolve
+en=$((en+$?))
+
+if [ "$en" -gt "0" ]
+then
+  echo '*******************************************************************'
+  echo "         ERRORS: $en times a wrong basis has been obtained" 
+  echo '*******************************************************************'
+else
+  echo "All the tests completed successfully!"
+fi
+echo ""
+
+# end
+
