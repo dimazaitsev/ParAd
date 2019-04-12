@@ -216,7 +216,7 @@ use aggregation with METIS into 4 clans.
 
     >mpirun -n 8 ParAd -s -a -0.8 -r zsolve ht_d4k3p2b08.spm ht_d4k3p2b08.ti.spm
 
-use aggregation with bin packing into minimal number of bins with bin size -0.8*maximal_clan_size.
+use aggregation with bin packing into minimal number of bins with bin size 0.8*maximal_clan_size.
 
 
 Tests: 
