@@ -1,9 +1,0 @@
-#!/bin/bash
-# compares two basises represented by sparse matrix in .spm format, a solution per line
-
-# parameters: $1 - first solution; $2 - second solution
-
-./spm_bas $1 | sort > $1.sb
-./spm_bas $2 | sort > $2.sb
-diff -s $1.sb $2.sb
-
