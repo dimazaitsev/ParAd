@@ -1,0 +1,34 @@
+#!/bin/sh
+#SBATCH --time=10:00:00
+
+# tests ParAd on all .spm files and compares basises obtained via different methods
+
+#start example: sbatch -N 10 -w "d[00-09]" -o output/test_all_slurm.stdout test_all_slurm
+
+en=0
+
+for f in `ls *.spm`;
+do
+	echo matrix $f
+	./test1_slurm $f ParTou
+        en=$((en+$?))
+	./test1_slurm $f zsolve
+        en=$((en+$?))
+	./test1_slurm $f ParTou -T
+        en=$((en+$?))
+	./test1_slurm $f zsolve -T
+        en=$((en+$?))
+done
+
+if [ "$en" -gt "0" ]
+then
+  echo '*******************************************************************'
+  echo "         ERRORS: $en times a wrong basis has been obtained" 
+  echo '*******************************************************************'
+else
+  echo "All the tests completed successfully!"
+fi
+echo ""
+
+# end
+

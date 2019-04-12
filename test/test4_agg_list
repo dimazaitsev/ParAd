@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# Tests ParAd on a given matrix and prints benchmarks
+# Parameters:
+# $m - matrix
+
+#set -o xtrace
+
+for m in AirplaneLD-pt-1000.spm afcs_48_b.spm deploy_7_b.net.spm dlcro_13_b.net.spm ht_d4k3p2b08.spm hxg_816.net.spm shared_memory-pt-50.net.spm;
+do
+
+# direct solution
+echo '=====' matrix: $m, keys:
+mpirun -n 1 ./ParAd -r zsolve -d 1 $m output/${m}.sol
+
+# check whether they are solutions
+# multiply the system matrix by basis
+
+# multiply system by basis
+if [ -z "$3" ]; then
+ ../utils/mul2m output/${m}.sol ${m} output/${m}.sol.res
+else
+ ../utils/transpose output/${m}.sol output/${m}.sol.trs
+ ../utils/mul2m ${m} output/${m}.sol.trs output/${m}.sol.res
+fi
+# the file is empty if the multiplication result is zero
+if [ -s output/${m}.sol.res ]; then 
+  echo '***** ERROR:' output/${m}.sol is not a basis
+  en=$((en+1))
+else 
+  echo '=====' output/${m}.sol is a basis
+fi 
+echo ""
+
+# composition
+echo '=====' matrix: $m, keys: -c
+mpirun -n 4 ./ParAd -c -r zsolve -d 1 $m output/${m}.sol-c
+
+# check whether they are solutions
+# multiply the system matrix by basis
+
+# multiply system by basis
+if [ -z "$3" ]; then
+ ../utils/mul2m output/${m}.sol-c ${m} output/${m}.sol-c.res
+else
+ ../utils/transpose output/${m}.sol-c output/${m}.sol-c.trs
+ ../utils/mul2m ${m} output/${m}.sol-c.trs output/${m}.sol-c.res
+fi
+# the file is empty if the multiplication result is zero
+if [ -s output/${m}.sol-c.res ]; then 
+  echo '***** ERROR:' output/${m}.sol-c is not a basis
+  en=$((en+1))
+else 
+  echo '=====' output/${m}.sol-c is a basis
+fi 
+echo ""
+
+# METIS
+echo '=====' matrix: $m, keys: -c -a 1
+mpirun -n 4 ./ParAd -c -r zsolve -a 1 -d 1 $m output/${m}.sol-a1
+
+# check whether they are solutions
+# multiply the system matrix by basis
+
+# multiply system by basis
+if [ -z "$3" ]; then
+ ../utils/mul2m output/${m}.sol-a1 ${m} output/${m}.sol-a1.res
+else
+ ../utils/transpose output/${m}.sol-a1 output/${m}.sol-a1.trs
+ ../utils/mul2m ${m} output/${m}.sol-a1.trs output/${m}.sol-a1.res
+fi
+# the file is empty if the multiplication result is zero
+if [ -s output/${m}.sol-a1.res ]; then 
+  echo '***** ERROR:' output/${m}.sol-a1 is not a basis
+  en=$((en+1))
+else 
+  echo '=====' output/${m}.sol-a1 is a basis
+fi 
+echo ""
+
+# bin packing
+echo '=====' matrix: $m, keys: -a -1
+mpirun -n 4 ./ParAd -c -r zsolve -a -1 -d 1 $m output/${m}.sol-a-1
+
+# check whether they are solutions
+# multiply the system matrix by basis
+
+# multiply system by basis
+if [ -z "$3" ]; then
+ ../utils/mul2m output/${m}.sol-a-1 ${m} output/${m}.sol-a-1.res
+else
+ ../utils/transpose output/${m}.sol-a-1 output/${m}.sol-a-1.trs
+ ../utils/mul2m ${m} output/${m}.sol-a-1.trs output/${m}.sol-a-1.res
+fi
+# the file is empty if the multiplication result is zero
+if [ -s output/${m}.sol-a-1.res ]; then 
+  echo '***** ERROR:' output/${m}.sol-a-1 is not a basis
+  en=$((en+1))
+else 
+  echo '=====' output/${m}.sol-a-1 is a basis
+fi 
+echo ""
+
+done
+
+# end
+

@@ -1,0 +1,44 @@
+tr {tr-rq} [0,w[ {pof-rq} pm2 -> pm3
+tr {ts-BRL} [0,w[ BRLm pm3 -> pBRL pm4
+tr {trof-rs} [0,w[ {pof-rs} pc1 -> STc*2 DLVc PAYc ORDc ORGc pc2
+tr {ts-BRLS} [0,w[ BRLSc pc5 -> pc6 pBRLS
+tr {tr-BRLS} [0,w[ pBRLS pm4 -> BRLSm pm5
+tr {ts-PRQ} [0,w[ ORGc PAYc STc pc7 -> pc8 pPRQ
+tr {tr-ind} [0,w[ pind pc12 -> ORGc ORDc DLVc pc13
+tr {trof-rq} [0,w[ pmx {Pof-rq} -> pm1
+tr {ts-rqd} [0,w[ p9 pc10 HTML -> pc12 prqd
+tr {tr-rqd} [0,w[ prqd pm6 -> pm7
+tr {tr-BRL} [0,w[ pBRL pc4 -> BRLc pc5
+tr {tsof-rs} [0,w[ DLVm PAYm ORDm ORGm STm pm1 -> pm2 {pof-rs}
+tr {tr-drs} [0,w[ pdrs pc14 -> STc DNc p15
+tr {ts-drq} [0,w[ DLVc ORGc STc pc13 -> pc14 pdrq
+tr {tsof-rq} [0,w[ HTML pcx -> {Pof-rq} pc1
+tr t2 [0,w[ pm0 -> BRLm DLVm*2 PAYm*2 ORDm*2 ORGm*3 STm pmx
+tr t3 [0,w[ pc0 -> HTML*3 pcx
+tr {ts-drs} [0,w[ STd DNd pdh1 -> p10 pdrs
+tr {ts-ind} [0,w[ ORDm DLVm ORGm pm7 -> pm8 pind
+tr tcr [0,w[ STc DNc PAYc DLVc ORGc ORDc*2 p15 -> pc0
+tr t0 [0,w[ BRLc -> BRLSc
+tr {ts-PayAt} [0,w[ PAYm ORGm pm5 -> pm6 pPayAt
+tr {tr-PayAt} [0,w[ pPayAt pc6 -> PAYc ORGc pc7
+tr {ts-rq} [0,w[ HTML pc2 -> {pof-rq} pc4
+tr {tr-PRS} [0,w[ STc PRc PNc pc9 -> {pPRS*} pc10
+tr {tr-PSD} [0,w[ PSDc pc8 -> {pPSD*} pc9
+tr t11 [0,w[ pPRS -> STc PRc PNc
+tr t14 [0,w[ BRLSm pm8 -> pm0
+tr t5 [0,w[ pph0 -> PNp PRp PSDp p8
+tr t6 [0,w[ PNp PRp PSDp STp PAYp ORGp p9 -> pph0
+tr {tr-PRQ} [0,w[ p8 pPRQ -> PAYp ORGp STp pph1
+tr t9 [0,w[ pPSD -> PSDc
+tr {ts-PSD} [0,w[ PSDp pph1 -> pph2 pPSD
+tr {ts-PRS} [0,w[ {pPSD*} PNp PRp STp pph2 -> PSDp pPRS
+tr t12 [0,w[ {pPRS*} -> p9*2 STp PRp PNp
+tr t8 [0,w[ pdh0 -> p12 DNd
+tr {tr-drq} [0,w[ p12 pdrq -> DLVd ORDd STd pdh1
+tr t7 [0,w[ ORDd DLVd p10 -> pdh0
+pl pc0 (1)
+pl pm0 (1)
+pl pph0 (1)
+pl pdh0 (1)
+net {IOTP2.2.1}
+
