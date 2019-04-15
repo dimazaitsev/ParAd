@@ -236,7 +236,7 @@ Test matrices and scripts are situated in subdirectory `test`, the obtained resu
     >sbatch -N 10 -w "d[00-09]" -o output/test_slurm.stdout test_slurm 
     >sbatch -N 10 -w "d[00-09]" -o output/test_all_slurm.stdout test_all_slurm 
 
-Supplementary tests for benchmarks of aggregation added: `text1_agg`, `test4_agg`, `test4_agg_list`, `testagg`.
+Supplementary tests for benchmarks of aggregation added: `text1_agg_mpi`, `test_agg_mpi`, `test1_agg_slurm`, `test_agg_slurm`.
 
 
 Compatibility with Tina 
