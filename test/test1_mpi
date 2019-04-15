@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Tests ParAd on a given matrix and prints benchmarks
+# Parameters:
+# $1 - matrix, $2 - solver, $3 - transpose (default none or -T)
+
+en=0
+
+# direct solution
+echo '=====' matrix: $1, keys: -r $2 $3
+mpirun -n 1 ./ParAd $3 -r $2 -d 1 -a 1 $1 output/${1}.sol
+
+# check whether they are solutions
+# multiply the system matrix by basis
+../utils/spm_bas output/${1}.sol | sort > output/${1}.sol.bas
+echo basis saved to output/${1}.sol.bas
+# multiply system by basis
+if [ -z "$3" ]; then
+ ../utils/mul2m output/${1}.sol ${1} output/${1}.sol.res
+else
+ ../utils/transpose output/${1}.sol output/${1}.sol.trs
+ ../utils/mul2m ${1} output/${1}.sol.trs output/${1}.sol.res
+fi
+# the file is empty if the multiplication result is zero
+if [ -s output/${1}.sol$k$n.res ]; then 
+  echo '***** ERROR:' output/${1}.sol$k$n is not a basis
+  en=$((en+1))
+else 
+  echo '=====' output/${1}.sol$k$n is a basis
+fi 
+echo ""
+
+# composition of clans (simultaneous and parallel-sequential) on different number of processes (nodes)
+for k in "-c" "-s"; do
+  for n in 1 4 8; do
+    
+    echo '=====' matrix: $1, keys: $k -n $n -r $2 $3
+    mpirun -n $n ./ParAd $3 -r $2 $k -d 1 -a 5.5 $1 output/${1}.sol$k$n
+
+    # chack whether basises coincide 
+    ../utils/spm_bas output/${1}.sol$k$n | sort > output/${1}.sol$k$n.bas
+    echo sorted basis saved to output/${1}.sol$k$n.bas
+    diff -s -q output/${1}.sol.bas output/${1}.sol$k$n.bas
+
+    # check whether they are solutions
+    # multiply the system matrix by basis
+    if [ -z "$3" ]; then
+      ../utils/mul2m output/${1}.sol$k$n ${1} output/${1}.sol$k$n.res
+    else
+      ../utils/transpose output/${1}.sol$k$n output/${1}.sol$k$n.trs
+      ../utils/mul2m ${1} output/${1}.sol$k$n.trs output/${1}.sol$k$n.res
+    fi
+    # the file is empty if the multiplication result is zero
+    if [ -s output/${1}.sol$k$n.res ]; then 
+       echo '***** ERROR:' output/${1}.sol$k$n is not a basis
+       en=$((en+1))
+    else 
+       echo '=====' output/${1}.sol$k$n is a basis
+    fi 
+
+    echo "" 
+   
+  done
+done
+
+exit $en
+
+# end
+
