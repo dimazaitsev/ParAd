@@ -299,7 +299,7 @@ Subdirectory `Tina_io` contains a few `.net` and `.ndr` files to try conversions
 References: 
 ----------- 
 
-1. Zaitsev D.A., Tomov S., Dongarra J. Solving Linear Diophantine Systems on Parallel Architectures, IEEE Transactions on Parallel and Distributed Systems, 05 October 2018, http://dx.doi.org/10.1109/TPDS.2018.2873354
+1. Zaitsev D.A., Tomov S., Dongarra J. Solving Linear Diophantine Systems on Parallel Architectures, IEEE Transactions on Parallel and Distributed Systems, 30(5) 2019, 1158-1169, http://dx.doi.org/10.1109/TPDS.2018.2873354
 
 2. Zaitsev D.A. Sequential composition of linear systems307. Online 12 February 2016, http://dx.doi.org/10.1016/j.ins.2016.02.016 
 
