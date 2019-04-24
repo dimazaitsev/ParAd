@@ -159,7 +159,7 @@ printf("\n");*/
   fclose( ti42_InputFile );
   free(C); 
  
-  sprintf(command,"4ti2-zsolve -q %s",InputFileName);
+  sprintf(command,"zsolve -q %s",InputFileName);
 
   ret=system(command);  
   if(ret!=0) 
