@@ -299,13 +299,13 @@ Subdirectory `Tina_io` contains a few `.net` and `.ndr` files to try conversions
 References: 
 ----------- 
 
-1. Zaitsev D.A., Tomov S., Dongarra J. Solving Linear Diophantine Systems on Parallel Architectures, IEEE Transactions on Parallel and Distributed Systems, 30(5) 2019, 1158-1169, http://dx.doi.org/10.1109/TPDS.2018.2873354
+1. Zaitsev D.A., Tomov S., Dongarra J. Solving Linear Diophantine Systems on Parallel Architectures, IEEE Transactions on Parallel and Distributed Systems, 30(5) 2019, 1158-1169. http://dx.doi.org/10.1109/TPDS.2018.2873354
 
-2. Zaitsev D.A. Sequential composition of linear systems307. Online 12 February 2016, http://dx.doi.org/10.1016/j.ins.2016.02.016 
+2.  Zaitsev D.A. Sequential composition of linear systems’ clans, Information Sciences, Volume 363, 2016, Pages 292-307. Online 12 February 2016. http://dx.doi.org/10.1016/j.ins.2016.02.016 
 
-3. Zaitsev D.A. Compositional analysis of Petri nets, Cybernetics and Systems Analysis, Volume 42, Number 1 (2006), 126-136, http://dx.doi.org/10.1007/s10559-006-0044-0 
+3. Zaitsev D.A. Compositional analysis of Petri nets, Cybernetics and Systems Analysis, Volume 42, Number 1 (2006), 126-136. http://dx.doi.org/10.1007/s10559-006-0044-0 
 
-4. Zaitsev D.A. Decomposition of Petri Nets, Cybernetics and Systems Analysis, Volume 40, Number 5 (2004), 739-746, http://dx.doi.org/10.1007/s10559-005-0012-0 
+4. Zaitsev D.A. Decomposition of Petri Nets, Cybernetics and Systems Analysis, Volume 40, Number 5 (2004), 739-746. http://dx.doi.org/10.1007/s10559-005-0012-0 
 
 
 ----------------------------------------------------------------------- 
